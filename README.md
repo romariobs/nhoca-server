@@ -28,7 +28,6 @@ Returns a list with the top 5 with most score.
             "updatedAt":"2017-02-18T19:16:26.052Z",
             "id":"58a89d8aa6f68ebc1fbba354"
         },
-        ...
     ]
 }
 ```
