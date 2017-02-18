@@ -13,8 +13,26 @@ module.exports = {
   create: function (req, res) {
     var name = req.param('name');
     var score = req.param('score');
-    return res.json({
-      todo: 'create() is not implemented yet!'
+    var ranking = {
+      name: name,
+      score: score
+    };
+
+    Ranking.create(ranking).exec(function (err, newRanking) {
+      var response = {};
+      if (err) {
+        response = {
+          status : 500,
+          message : "Error creating ranking",
+          error : err
+        };
+        return res.json(response);
+      }
+      response = {
+        status: 201,
+        ranking: newRanking
+      };
+      return res.json(response);
     });
   },
 

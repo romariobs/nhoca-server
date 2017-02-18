@@ -56,7 +56,7 @@ module.exports.connections = {
   * Run: npm install sails-mongo                                             *
   *                                                                          *
   ***************************************************************************/
-   mlabHeroku: {
+  mLabMongodbServer: {
      adapter: 'sails-mongo',
      url: 'mongodb://nhocadb:nhoca@ds159497.mlab.com:59497/heroku_x5m5s8t7',
      //port: 27017,
