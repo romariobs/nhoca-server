@@ -51,9 +51,30 @@ module.exports = {
    * `RankingController.find()`
    */
   find: function (req, res) {
-    return res.json({
-      todo: 'find() is not implemented yet!'
+    var query = Ranking.find();
+    query.limit(5);
+    query.sort('score DESC');
+
+    query.exec(function (err, results) {
+      var response = {};
+
+      if (err) {
+        response.status = 500;
+        response.err = err;
+        return res.json(response);
+      } else {
+        response.status = 200;
+        response.ranking = results;
+      }
+
     });
+
+
+
+
+    /*return res.json({
+      todo: 'find() is not implemented yet!'
+    });*/
   },
 
 
