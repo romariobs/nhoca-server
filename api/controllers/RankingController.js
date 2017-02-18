@@ -65,6 +65,7 @@ module.exports = {
       } else {
         response.status = 200;
         response.ranking = results;
+        return res.json(response);
       }
 
     });
