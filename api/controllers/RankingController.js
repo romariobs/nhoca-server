@@ -11,6 +11,8 @@ module.exports = {
    * `RankingController.create()`
    */
   create: function (req, res) {
+    var name = req.param('name');
+    var score = req.param('score');
     return res.json({
       todo: 'create() is not implemented yet!'
     });
