@@ -43,7 +43,7 @@ module.exports = {
   destroy: function (req, res) {
     var responseObject = {};
     Ranking.destroy({}, function (err) {
-      if () {
+      if (err) {
         responseObject  = {
           status : 500,
           message : 'Error deleting ranking',
