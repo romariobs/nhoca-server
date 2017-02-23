@@ -65,7 +65,7 @@ module.exports = {
    */
   find: function (req, res) {
     var query = Ranking.find();
-    query.limit(5);
+    query.limit(10);
     query.sort('score DESC');
 
     query.exec(function (err, results) {
