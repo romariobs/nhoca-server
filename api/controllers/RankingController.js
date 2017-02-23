@@ -41,9 +41,22 @@ module.exports = {
    * `RankingController.destroy()`
    */
   destroy: function (req, res) {
-    return res.json({
-      todo: 'destroy() is not implemented yet!'
+    var responseObject = {};
+    Ranking.destroy({}, function (err) {
+      if () {
+        responseObject  = {
+          status : 500,
+          message : 'Error deleting ranking',
+          error : err
+        };
+      } else {
+        responseObject  = {
+          status : 200,
+          message : 'It deleted successfully.'
+        };
+      }
     });
+    return res.json(responseObject);
   },
 
 
