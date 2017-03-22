@@ -13,6 +13,17 @@ module.exports = {
   create: function (req, res) {
     var name = req.param('name');
     var score = req.param('score');
+
+    //Bad request if invalid score
+    if (score <= 0){
+      response = {
+        status : 400,
+        message : "Bad Request, Invalid Score! The score must be a value greater than 0.",
+        error : err
+      };
+      return res.json(400, response);
+    }
+
     var ranking = {
       name: name,
       score: score
@@ -26,14 +37,15 @@ module.exports = {
           message : "Error creating ranking",
           error : err
         };
-        return res.json(response);
+        return res.json(500, response);
       }
       response = {
         status: 201,
         ranking: newRanking
       };
-      return res.json(response);
+      return res.json(201, response);
     });
+
   },
 
 
@@ -42,21 +54,48 @@ module.exports = {
    */
   destroy: function (req, res) {
     var responseObject = {};
-    Ranking.destroy({}, function (err) {
-      if (err) {
+
+    Ranking.findOne(req.param('id'), function foundRanking(err, ranking){
+
+      if (err){
         responseObject  = {
           status : 500,
-          message : 'Error deleting ranking',
+          message : 'Internal Server Error, Fail searching ranking.',
           error : err
         };
-      } else {
-        responseObject  = {
-          status : 200,
-          message : 'It deleted successfully.'
-        };
+        return res.json(responseObject);
       }
+
+      if (!user){
+        responseObject = {
+          status : 404,
+          message : 'Not Found, Ranking doesn\'t exist.'
+        };
+
+        return res.json(responseObject);
+      }
+
+
+      Ranking.destroy(req.param('id'), function userDestroyed(err){
+        if (err){
+          responseObject  = {
+            status : 500,
+            message : 'Internal Server Error, Fail deleting ranking.',
+            error : err
+          };
+        }
+        else {
+          responseObject  = {
+            status : 200,
+            message : 'Ranking deleted successfully.'
+          };
+        }
+
+        return res.json(responseObject);
+      });
+
     });
-    return res.json(responseObject);
+
   },
 
 
@@ -73,6 +112,7 @@ module.exports = {
 
       if (err) {
         response.status = 500;
+        response.message = "Internal Server Error, fail to search rankings.";
         response.err = err;
         return res.json(response);
       } else {
@@ -83,9 +123,6 @@ module.exports = {
 
     });
 
-    /*return res.json({
-      todo: 'find() is not implemented yet!'
-    });*/
   },
 
 
@@ -93,9 +130,35 @@ module.exports = {
    * `RankingController.findOne()`
    */
   findOne: function (req, res) {
-    return res.json({
-      todo: 'findOne() is not implemented yet!'
+    var responseObject = {};
+
+    Ranking.findOne( req.param('id'), function foundRanking(err, ranking){
+
+      if (err){
+        responseObject = {
+          status : 500,
+          message : "Internal Server Error, Fail searching ranking with id " + req.param('id'),
+          error : err
+        };
+        return res.json(500, responseObject);
+      }
+
+      if (!ranking){
+        responseObject = {
+          status : 404,
+          message : "Not Found, Ranking doesn\'t exist."
+        };
+        return res.json(404, responseObject);
+      }
+
+      responseObject = {
+        status : 200,
+        ranking : ranking
+      };
+      return res.json(200, responseObject);
     });
   }
+
+
 };
 
