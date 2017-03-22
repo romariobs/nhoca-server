@@ -1,9 +1,17 @@
 # nhoca-server
+------------------------------------------------------------------------
 
  [Nhoca](http://nhoca.herokuapp.com) on Heroku.
 
+##  Setting the Local MySQL Instance.
+CREATE USER 'nhoca'@'localhost' IDENTIFIED BY 'nhoca';
+GRANT ALL PRIVILEGES ON * . * TO 'nhoca'@'localhost';
+CREATE DATABASE nhoca_server_db;
+
+
 Backend of the Nhoca App.
-#### Services:
+## Services:
+
 
 *  **GET /ranking**
 

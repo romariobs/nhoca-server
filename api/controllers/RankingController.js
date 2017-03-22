@@ -83,9 +83,6 @@ module.exports = {
 
     });
 
-
-
-
     /*return res.json({
       todo: 'find() is not implemented yet!'
     });*/
