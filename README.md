@@ -12,6 +12,43 @@ CREATE DATABASE nhoca_server_db;
 Backend of the Nhoca App.
 ## Services:
 
+* *  **GET /player**
+
+```json
+{
+  "status": 200,
+  "players": [
+    {
+      "uuid": "416a5e20-0f5b-11e7-acf1-d37b2bb40438",
+      "name": "eu",
+      "bestScore": 0,
+      "coins": 1,
+      "id": 1,
+      "createdAt": "2017-03-22T23:57:07.000Z",
+      "updatedAt": "2017-03-22T23:57:07.000Z"
+    },
+    {
+      "uuid": "60c7c710-0f5d-11e7-952c-af9ccb5ec334",
+      "name": "tu",
+      "bestScore": 0,
+      "coins": 0,
+      "id": 2,
+      "createdAt": "2017-03-23T00:12:18.000Z",
+      "updatedAt": "2017-03-23T00:12:18.000Z"
+    },
+    {
+      "uuid": "eb5438f0-0f5d-11e7-9b55-25b0e675ecde",
+      "name": "tu",
+      "bestScore": 0,
+      "coins": 0,
+      "id": 3,
+      "createdAt": "2017-03-23T00:16:11.000Z",
+      "updatedAt": "2017-03-23T00:16:11.000Z"
+    }
+  ]
+}
+
+```
 
 *  **GET /ranking**
 

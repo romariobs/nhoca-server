@@ -48,57 +48,6 @@ module.exports = {
 
   },
 
-
-  /**
-   * `RankingController.destroy()`
-   */
-  destroy: function (req, res) {
-    var responseObject = {};
-
-    Ranking.findOne(req.param('id'), function foundRanking(err, ranking){
-
-      if (err){
-        responseObject  = {
-          status : 500,
-          message : 'Internal Server Error, Fail searching ranking.',
-          error : err
-        };
-        return res.json(responseObject);
-      }
-
-      if (!user){
-        responseObject = {
-          status : 404,
-          message : 'Not Found, Ranking doesn\'t exist.'
-        };
-
-        return res.json(responseObject);
-      }
-
-
-      Ranking.destroy(req.param('id'), function userDestroyed(err){
-        if (err){
-          responseObject  = {
-            status : 500,
-            message : 'Internal Server Error, Fail deleting ranking.',
-            error : err
-          };
-        }
-        else {
-          responseObject  = {
-            status : 200,
-            message : 'Ranking deleted successfully.'
-          };
-        }
-
-        return res.json(responseObject);
-      });
-
-    });
-
-  },
-
-
   /**
    * `RankingController.find()`
    */
@@ -124,7 +73,6 @@ module.exports = {
     });
 
   },
-
 
   /**
    * `RankingController.findOne()`
@@ -157,6 +105,55 @@ module.exports = {
       };
       return res.json(200, responseObject);
     });
+  },
+
+  /**
+   * `RankingController.destroy()`
+   */
+  destroy: function (req, res) {
+    var responseObject = {};
+
+    Ranking.findOne(req.param('id'), function foundRanking(err, ranking){
+
+      if (err){
+        responseObject  = {
+          status : 500,
+          message : 'Internal Server Error, Fail searching ranking.',
+          error : err
+        };
+        return res.json(responseObject);
+      }
+
+      if (!user){
+        responseObject = {
+          status : 404,
+          message : 'Not Found, Ranking doesn\'t exist.'
+        };
+
+        return res.json(responseObject);
+      }
+
+
+      Ranking.destroy(req.param('id'), function rankingDestroyed(err){
+        if (err){
+          responseObject  = {
+            status : 500,
+            message : 'Internal Server Error, Fail deleting ranking.',
+            error : err
+          };
+        }
+        else {
+          responseObject  = {
+            status : 200,
+            message : 'Ranking deleted successfully.'
+          };
+        }
+
+        return res.json(responseObject);
+      });
+
+    });
+
   }
 
 
