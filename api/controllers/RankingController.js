@@ -8,63 +8,29 @@
 module.exports = {
 
   /**
-   * `RankingController.create()`
-   */
-  create: function (req, res) {
-    var name = req.param('name');
-    var score = req.param('score');
-
-    //Bad request if invalid score
-    if (score <= 0){
-      response = {
-        status : 400,
-        message : "Bad Request, Invalid Score! The score must be a value greater than 0.",
-        error : err
-      };
-      return res.json(400, response);
-    }
-
-    var ranking = {
-      name: name,
-      score: score
-    };
-
-    Ranking.create(ranking).exec(function (err, newRanking) {
-      var response = {};
-      if (err) {
-        response = {
-          status : 500,
-          message : "Error creating ranking",
-          error : err
-        };
-        return res.json(500, response);
-      }
-      response = {
-        status: 201,
-        ranking: newRanking
-      };
-      return res.json(201, response);
-    });
-
-  },
-
-  /**
    * `RankingController.find()`
    */
   find: function (req, res) {
-    var query = Ranking.find();
+    var query = Player.find();
     query.limit(10);
-    query.sort('score DESC');
+    query.sort('bestScore DESC');
 
-    query.exec(function (err, results) {
+    query.exec(function foundPlayer(err, players) {
       var response = {};
 
       if (err) {
         response.status = 500;
-        response.message = "Internal Server Error, fail to search rankings.";
+        response.message = "Internal Server Error, fail to search players.";
         response.err = err;
         return res.json(response);
       } else {
+
+        var results = [];
+
+        players.forEach(function(player){
+          results.push({ name : player.name , score: player.bestScore })
+        });
+
         response.status = 200;
         response.ranking = results;
         return res.json(response);
@@ -72,90 +38,7 @@ module.exports = {
 
     });
 
-  },
-
-  /**
-   * `RankingController.findOne()`
-   */
-  findOne: function (req, res) {
-    var responseObject = {};
-
-    Ranking.findOne( req.param('id'), function foundRanking(err, ranking){
-
-      if (err){
-        responseObject = {
-          status : 500,
-          message : "Internal Server Error, Fail searching ranking with id " + req.param('id'),
-          error : err
-        };
-        return res.json(500, responseObject);
-      }
-
-      if (!ranking){
-        responseObject = {
-          status : 404,
-          message : "Not Found, Ranking doesn\'t exist."
-        };
-        return res.json(404, responseObject);
-      }
-
-      responseObject = {
-        status : 200,
-        ranking : ranking
-      };
-      return res.json(200, responseObject);
-    });
-  },
-
-  /**
-   * `RankingController.destroy()`
-   */
-  destroy: function (req, res) {
-    var responseObject = {};
-
-    Ranking.findOne(req.param('id'), function foundRanking(err, ranking){
-
-      if (err){
-        responseObject  = {
-          status : 500,
-          message : 'Internal Server Error, Fail searching ranking.',
-          error : err
-        };
-        return res.json(responseObject);
-      }
-
-      if (!user){
-        responseObject = {
-          status : 404,
-          message : 'Not Found, Ranking doesn\'t exist.'
-        };
-
-        return res.json(responseObject);
-      }
-
-
-      Ranking.destroy(req.param('id'), function rankingDestroyed(err){
-        if (err){
-          responseObject  = {
-            status : 500,
-            message : 'Internal Server Error, Fail deleting ranking.',
-            error : err
-          };
-        }
-        else {
-          responseObject  = {
-            status : 200,
-            message : 'Ranking deleted successfully.'
-          };
-        }
-
-        return res.json(responseObject);
-      });
-
-    });
-
   }
-
 
 };
 
