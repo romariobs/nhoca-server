@@ -57,24 +57,23 @@ Returns a list with the top 5 with most score.
 **Result:**
 ```json
 {
-    "status":200,
-    "ranking":[
-        {
-            "name":"cesar",
-            "score":432,
-            "createdAt":"2017-02-18T19:15:41.228Z",
-            "updatedAt":"2017-02-18T19:15:41.228Z",
-            "id":"58a89d5da6f68ebc1fbba352"
-        },
-        {
-            "name":"romario",
-            "score":421,
-            "createdAt":"2017-02-18T19:16:26.052Z",
-            "updatedAt":"2017-02-18T19:16:26.052Z",
-            "id":"58a89d8aa6f68ebc1fbba354"
-        },
-    ]
+  "status": 200,
+  "ranking": [
+    {
+      "name": "Nhocador",
+      "score": 24
+    },
+    {
+      "name": "Nhocador",
+      "score": 16
+    },
+    {
+      "name": "Nhocador",
+      "score": 13
+    }
+  ]
 }
+
 ```
 
 * **POST /ranking**
