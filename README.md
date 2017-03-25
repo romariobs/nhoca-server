@@ -52,7 +52,7 @@ Backend of the Nhoca App.
 
 *  **GET /ranking**
 
-Returns a list with the top 5 with most score.
+Returns a list with the top 10 with most score.
 
 **Result:**
 ```json
